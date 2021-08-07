@@ -1,5 +1,9 @@
+
+import string
+
+
 class Sources:
-    def __init__(self,id,name,description,url,country,language):
+    def __init__(self,id:string,name,description,url,country,language):
         self.id=id,
         self.name=name,
         self.description=description
