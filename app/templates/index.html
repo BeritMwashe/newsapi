@@ -13,7 +13,8 @@
                 </div>
                 <div class="flip-card-back d-block">
                     <div>
-                        <p>{{source.description}}</p> <a href="{{source.url}}">Click me for my news</a>
+                        <p>{{source.description}}</p>
+                        <a href="/articles/{{source.name}}">Click me for my news</a>
                         </p>
                     </div>
 
@@ -30,10 +31,16 @@
 
 
     <div class="col-xs-8 col-sm-8 col-md-6 col-lg-8 ">
-        <h3>News Headlines</h3>
-        {% for digit in [1,23,3,4,5,6]%}
-        <h1>Take care</h1>
-        {% endfor%} -->
+        <h3>Top Headlines</h3>
+        {%for article in articles%}
+        <div class="container">
+            {{sourcePassed|safe}}{{article.source.name}} {%if article.source.name|string()== sourcePassed|string()%}
+            <img src="{{article.urlToImage}}" alt="">
+            <p>{{article.description}}</p>{%elif sourcePassed|length
+            <1%} <img src="{{article.urlToImage}}" alt="">
+                <p>{{article.description}}</p>{%else%}
+                <h1>Not a member</h1>{%endif%} </div>
+        {%endfor%}
 
     </div>
 

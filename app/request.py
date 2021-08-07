@@ -52,7 +52,7 @@ def process_results(sources_list):
         source_results.append(source_object)
     return source_results
 
-def get_Articles(category='everything',query='food'):
+def get_Articles(category='everything',query='all'):
     articles_url=base_url_for_everything.format(category,query,api_key)
     with urllib.request.urlopen(articles_url) as url:
         articles_url_data=url.read()
