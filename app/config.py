@@ -8,4 +8,4 @@ class ProdConfig(Config):
 
 
 class DevConfig(Config):
-    pass
+    DEBUG=True
