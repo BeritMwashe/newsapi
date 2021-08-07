@@ -1,2 +1,6 @@
 {% extends 'htmlbase.html'%} {%block content%} {%for article in articles%}
-<h1>{{article.title}}</h1>{%endfor%}{% endblock%}
+<div class="container">
+    <img src="{{ article.urlToImage }}" " alt=" ">
+<h1>{{article.content}}</h1>
+</div>
+{%endfor%}{% endblock%}
