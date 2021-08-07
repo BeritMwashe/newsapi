@@ -1,3 +1,4 @@
+
 from app.config import DevConfig
 from flask import Flask
 

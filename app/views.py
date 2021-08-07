@@ -1,5 +1,5 @@
-from flask import Flask
-
+from flask import Flask, render_template
+from .request import get_sources
 from app import app
 
 
@@ -7,4 +7,5 @@ from app import app
 
 @app.route('/')
 def index():
-    return '<h1>Hello there</h1>'
+    sources=get_sources()
+    return render_template('index.html',source=sources)
