@@ -52,7 +52,7 @@ def process_results(sources_list):
         source_results.append(source_object)
     return source_results
 
-def get_Articles(category='top-headlines',query='all'):
+def get_Articles(category='everything',query='food'):
     articles_url=base_url_for_everything.format(category,query,api_key)
     with urllib.request.urlopen(articles_url) as url:
         articles_url_data=url.read()
@@ -82,4 +82,5 @@ def process_article_results(article_result_list):
         publishedAt=article.get('publishedAt')
         content=article.get('content')
         article_object=Articles(source,author,title,description,url,urlToImage,publishedAt,content)
+        article_results.append(article_object)
     return article_results
