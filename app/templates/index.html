@@ -1,27 +1,41 @@
 {% extends 'htmlbase.html'%} {%block content%}
 
-<div class="container">
-    {% for source in source%}
-    <div class="flip-card">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <h1>{{source.name }}</h1>
-                <!-- <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;"> -->
-            </div>
-            <div class="flip-card-back">
 
-                <p>{{source.description}}</p>
-                <div class="d-flex flex-row bd-highlight mb-3">
-                    <h6 class="p-2 bd-highlight">{{source.country}}</h6>
-                    <h6 class="p-2 bd-highlight">{{source.language}}</h6>
+
+<div class="container">
+    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
+        <h3>Our sources</h3> {% for source in source%}
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <h1>{{source.name }}</h1>
+
+                </div>
+                <div class="flip-card-back d-block">
+                    <div>
+                        <p>{{source.description}}</p> <a href="{{source.url}}">Click me for my news</a>
+                        </p>
+                    </div>
+
+
+
                 </div>
 
             </div>
         </div>
+        {% endfor%}
     </div>
 
-    {% endfor%}
 
+
+
+    <div class="col-xs-8 col-sm-8 col-md-6 col-lg-8 ">
+        <h3>News Headlines</h3>
+        {% for digit in [1,23,3,4,5,6]%}
+        <h1>Take care</h1>
+        {% endfor%} -->
+
+    </div>
 
 </div>
 {%endblock%}
