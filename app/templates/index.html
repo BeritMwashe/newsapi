@@ -1,20 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'htmlbase.html'%} {%block content%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<div class="container">
+    {% for source in source%}
+    <div class="flip-card">
+        <div class="flip-card-inner">
+            <div class="flip-card-front">
+                <h1>{{source.name }}</h1>
+                <!-- <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;"> -->
+            </div>
+            <div class="flip-card-back">
 
-<body>
-    <div class="container">
-        <h1>Hello There</h1>
-        {% for source in source%}
-        <li>{{source.name }} sources</li>
-        {% endfor%}
+                <p>{{source.description}}</p>
+                <div class="d-flex flex-row bd-highlight mb-3">
+                    <h6 class="p-2 bd-highlight">{{source.country}}</h6>
+                    <h6 class="p-2 bd-highlight">{{source.language}}</h6>
+                </div>
+
+            </div>
+        </div>
     </div>
-</body>
 
-</html>
+    {% endfor%}
+
+
+</div>
+{%endblock%}
