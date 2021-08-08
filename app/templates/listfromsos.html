@@ -1,0 +1,12 @@
+{% extends 'htmlbase.html'%} {%block content%} {%if articles|length
+<1%}<h1>Nothing to display
+    </h1>{%else%}{% for article in articles%}
+    <div class="container">
+        <h1>{{article.title}}</h1>
+
+        <img src="{{article.urlToImage}}" class="img-responsive" alt=" ">
+
+        <p>{{article.source.name}} <span>published at: {{article.publishedAt}}</span></p>
+        <p>{{article.content}}</p>
+        <a href="{{article.url}} ">Read original article</a>
+    </div>{%endfor%}{%endif%}{% endblock%}

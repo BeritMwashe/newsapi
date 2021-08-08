@@ -1,9 +1,10 @@
-{% extends 'htmlbase.html'%} {%block content%} {%for article in articles%}
+{% extends 'htmlbase.html'%} {%block content%} {% for article in articles%}
 <div class="container">
-    {{source|safe}}{{article.source.name}} {%if article.source.name|string()== source|string()%}
-    <img src="{{article.urlToImage}}" alt="">
-    <p>{{article.description}}</p>{%elif source|length
-    <1%} <img src="{{article.urlToImage}}" alt="">
-        <p>{{article.description}}</p>{%else%}
-        <h1>Not a member</h1>{%endif%} </div>
-{%endfor%}{% endblock%}
+    <h1>{{article.title}}</h1>
+
+    <img src="{{article.urlToImage}}" class="img-responsive" alt=" ">
+
+    <p>{{article.source.name}} <span>published at: {{article.publishedAt}}</span></p>
+    <p>{{article.content}}</p>
+    <a href="{{article.url}} ">Read original article</a>
+</div>{%endfor%}{% endblock%}

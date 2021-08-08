@@ -12,6 +12,8 @@ Articles=articles.Articles
 api_key=app.config['NEWS_API_KEY']
 base_url=app.config["NEWS_BASE_URL_SOURCES"]
 base_url_for_everything=app.config['NEWS_BASE_EVERYTHING_URL']
+base_url_top_headlines=app.config['NEWS_BASE_HEADLINES_URL']
+base_source_list=app.config['NEWS_BASE_SOURCE']
 
 
 
@@ -52,8 +54,8 @@ def process_results(sources_list):
         source_results.append(source_object)
     return source_results
 
-def get_Articles(category='everything',query='all'):
-    articles_url=base_url_for_everything.format(category,query,api_key)
+def get_Articles(domain):
+    articles_url=base_url_for_everything.format(domain,api_key)
     with urllib.request.urlopen(articles_url) as url:
         articles_url_data=url.read()
         articles_url_response=json.loads(articles_url_data)
@@ -72,15 +74,66 @@ def get_Articles(category='everything',query='all'):
 
 def process_article_results(article_result_list):
     article_results=[]
-    for article in article_result_list:
-        source=article.get('source')
-        author=article.get('author')
-        title=article.get('title')
-        description=article.get('description')
-        url=article.get('url')
-        urlToImage=article.get('urlToImage')
-        publishedAt=article.get('publishedAt')
-        content=article.get('content')
-        article_object=Articles(source,author,title,description,url,urlToImage,publishedAt,content)
-        article_results.append(article_object)
-    return article_results
+    if article_result_list:
+        for article in article_result_list:
+            source=article.get('source')
+            author=article.get('author')
+            title=article.get('title')
+            description=article.get('description')
+            url=article.get('url')
+            urlToImage=article.get('urlToImage')
+            publishedAt=article.get('publishedAt')
+            content=article.get('content')
+            article_object=Articles(source,author,title,description,url,urlToImage,publishedAt,content)
+            article_results.append(article_object)
+        return article_results
+    else:
+        for article in article_result_list:
+            source='We have no content for you'
+            author='We have no content for you'
+            title='We have no content for you'
+            description='We have no content for you'
+            url='We have no content for you'
+            urlToImage='We have no content for you'
+            publishedAt='We have no content for you'
+            content='We have no content for you'
+            article_object=Articles(source,author,title,description,url,urlToImage,publishedAt,content)
+            article_results.append(article_object)
+        return article_results
+def get_headlines():
+    articles_url=base_url_top_headlines.format(api_key)
+    with urllib.request.urlopen(articles_url) as url:
+        articles_url_data=url.read()
+        articles_url_response=json.loads(articles_url_data)
+
+
+        headlines_results=None
+
+
+        if articles_url_response['articles']:
+            print("available")
+            articles_results_list=articles_url_response['articles']
+            headlines_results=process_article_results(articles_results_list)
+
+
+    return headlines_results
+
+
+def get_articles_sos(source):
+    articles_url=base_source_list.format(source,api_key)
+    with urllib.request.urlopen(articles_url) as url:
+        articles_url_data=url.read()
+        articles_url_response=json.loads(articles_url_data)
+
+
+        articles_results=None
+
+
+        if articles_url_response['articles']:
+            print("available")
+            articles_results_list=articles_url_response['articles']
+            articles_results=process_article_results(articles_results_list)
+        else:
+            articles_results=process_article_results(articles_results)
+
+    return articles_results

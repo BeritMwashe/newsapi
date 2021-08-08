@@ -8,13 +8,13 @@
         <div class="flip-card">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
-                    <h1>{{source.name }}</h1>
+                    <h1>{{source.name}}</h1>
 
                 </div>
                 <div class="flip-card-back d-block">
                     <div>
                         <p>{{source.description}}</p>
-                        <a href="/articles/{{source.name}}">Click me for my news</a>
+                        <a href="/sources/{{source.name}}">Click me for my news</a>
                         </p>
                     </div>
 
@@ -34,15 +34,16 @@
         <h3>Top Headlines</h3>
         {%for article in articles%}
         <div class="container">
-            {{sourcePassed|safe}}{{article.source.name}} {%if article.source.name|string()== sourcePassed|string()%}
-            <img src="{{article.urlToImage}}" alt="">
-            <p>{{article.description}}</p>{%elif sourcePassed|length
-            <1%} <img src="{{article.urlToImage}}" alt="">
-                <p>{{article.description}}</p>{%else%}
-                <h1>Not a member</h1>{%endif%} </div>
+
+            <h1>{{article.title}}</h1>
+
+            <img src="{{article.urlToImage}}" class="img-responsive" alt=" ">
+
+            <p>{{article.source.name}} <span>published at: {{article.publishedAt}}</span></p>
+            <p>{{article.description}}</p>
+            <a href="{{article.url}} ">Read original article</a>
+
+        </div>
         {%endfor%}
-
     </div>
-
-</div>
-{%endblock%}
+    {%endblock%}

@@ -54,7 +54,6 @@
         }
         
         img {
-            width: 100%;
+            width: 100vh !important;
             height: 50vh;
-            margin-right: 4px !important;
         }

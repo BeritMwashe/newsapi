@@ -4,7 +4,7 @@ class Articles:
         self.source=source
         self.author=author
         self.title=title
-        self.descriptiom=description
+        self.description=description
         self.url=url
         self.urlToImage=urlToImage
         self.publishedAt=publishedAt
