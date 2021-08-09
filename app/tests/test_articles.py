@@ -1,13 +1,14 @@
-from models import articles
 import unittest
+from app.models import Articles
 
-Article=articles.Articles
+
+
 
 
 class Test_Article(unittest.TestCase):
     ''''Define setup method'''
     def setUp(self):
-       self.new_article=Article(
+       self.new_article=Articles(
             {},
             "Jonathan Howcroft",
             "Bledisloe Cup 2021: New Zealand All Blacks v Australia Wallabies – live - The Guardian",
@@ -21,6 +22,8 @@ class Test_Article(unittest.TestCase):
 
     def test_instance(self):
         '''When the app starts test if its inititalized properly'''
-        self.assertTrue(isinstance(self.new_article,Article))
+        self.assertTrue(isinstance(self.new_article,Articles))
+
+
 
 
