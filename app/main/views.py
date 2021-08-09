@@ -1,12 +1,13 @@
 import re
 from flask import Flask, render_template
-from .request import get_Articles, get_articles_sos, get_headlines, get_sources
-from app import app
+from ..request import get_Articles, get_articles_sos, get_headlines, get_sources
+
+from . import main
 
 
 
 
-@app.route('/')
+@main.route('/')
 def index():
     sos=get_sources()
     
@@ -16,7 +17,7 @@ def index():
     )
 
 
-@app.route('/articles')
+@main.route('/articles')
 def articles():
     
     
@@ -24,14 +25,14 @@ def articles():
     articles=get_Articles(domain='bbc.com'+','+'cnn.com'+','+'techcrunch.com')
    
     return render_template('articles.html',articles=articles)
-@app.route('/sources')
+@main.route('/sources')
 def source():
     
     
     sources=get_sources()
    
     return render_template('sources.html',articles=sources)
-@app.route('/top-headlines')
+@main.route('/top-headlines')
 def headlines():
    
     articles=get_headlines()
@@ -40,7 +41,7 @@ def headlines():
     return render_template('articles.html',articles=articles)
 
 
-@app.route('/sources/<a>')
+@main.route('/sources/<a>')
 def source_list(a):
     a=re.sub(r'[^\w]', ' ', a)
     a=a.strip()

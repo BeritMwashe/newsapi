@@ -1,19 +1,34 @@
 # from app.test_sources import Source
 
-from .models import articles
-from .models import sources
-from app import app
+from .models import Articles
+from .models import Sources
+# from app import app
 import urllib.request,json
 #api
 
-Source=sources.Sources
-Articles=articles.Articles
 
-api_key=app.config['NEWS_API_KEY']
-base_url=app.config["NEWS_BASE_URL_SOURCES"]
-base_url_for_everything=app.config['NEWS_BASE_EVERYTHING_URL']
-base_url_top_headlines=app.config['NEWS_BASE_HEADLINES_URL']
-base_source_list=app.config['NEWS_BASE_SOURCE']
+
+
+# api_key=app.config['NEWS_API_KEY']
+# base_url=app.config["NEWS_BASE_URL_SOURCES"]
+# base_url_for_everything=app.config['NEWS_BASE_EVERYTHING_URL']
+# base_url_top_headlines=app.config['NEWS_BASE_HEADLINES_URL']
+# base_source_list=app.config['NEWS_BASE_SOURCE']
+
+api_key=None
+base_url=None
+base_url_for_everything=None
+base_url_top_headlines=None
+base_source_list=None
+
+def configure_request(app):
+    global api_key,base_url,base_url_for_everything,base_url_top_headlines,base_source_list
+  
+    api_key=app.config['NEWS_API_KEY']
+    base_url=app.config["NEWS_BASE_URL_SOURCES"]
+    base_url_for_everything=app.config['NEWS_BASE_EVERYTHING_URL']
+    base_url_top_headlines=app.config['NEWS_BASE_HEADLINES_URL']
+    base_source_list=app.config['NEWS_BASE_SOURCE']
 
 
 
@@ -48,10 +63,10 @@ def process_results(sources_list):
         country=source.get('country')
         language=source.get('language')
 
+        if name!=('ANSA.it'):
+            source_object=Sources(id,name,description,url,country,language)
 
-        source_object=Source(id,name,description,url,country,language)
-
-        source_results.append(source_object)
+            source_results.append(source_object)
     return source_results
 
 def get_Articles(domain):
@@ -84,22 +99,14 @@ def process_article_results(article_result_list):
             urlToImage=article.get('urlToImage')
             publishedAt=article.get('publishedAt')
             content=article.get('content')
-            article_object=Articles(source,author,title,description,url,urlToImage,publishedAt,content)
-            article_results.append(article_object)
+
+
+            if urlToImage:
+                article_object=Articles(source,author,title,description,url,urlToImage,publishedAt,content)
+                article_results.append(article_object)
         return article_results
     else:
-        for article in article_result_list:
-            source='We have no content for you'
-            author='We have no content for you'
-            title='We have no content for you'
-            description='We have no content for you'
-            url='We have no content for you'
-            urlToImage='We have no content for you'
-            publishedAt='We have no content for you'
-            content='We have no content for you'
-            article_object=Articles(source,author,title,description,url,urlToImage,publishedAt,content)
-            article_results.append(article_object)
-        return article_results
+        return '<h1>nothing to display</h1>'
 def get_headlines():
     articles_url=base_url_top_headlines.format(api_key)
     with urllib.request.urlopen(articles_url) as url:
